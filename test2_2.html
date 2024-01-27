@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Test 2</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: two nums (start and end) and divisor
+           * Processing: calc all nums between start and end that are divisible by divisor
+           * Output: nums calc'd by above
+           */
+          function insertNameHere() {
+               let start = Number(document.getElementById("start").value);
+               let end = Number(document.getElementById("end").value);
+               let divisor = Number(document.getElementById("divisor").value);
+               let output = "";
+               for (let i = start; i <= end; i++) {
+                    if (i%divisor == 0) {
+                         output += i + " ";
+                    }
+               }
+               document.getElementById("outputDiv").innerHTML = output
+          }
+      </script>
+</head>
+<body>
+     Start: <input type="number" id="start" size="5"><br>
+     End: <input type="number" id="end" size="5"><br>
+     Divisor: <input type="number" id="divisor" size="5"><br>
+     <button type="button" onclick="insertNameHere()">Click</button>
+     <div id="outputDiv"></div>
+</body>
+</html>

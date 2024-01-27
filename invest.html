@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Investment Calculator</title>
+     <style>
+          .main {
+               width: 300px;
+               line-height: 1.5em;
+          }
+          .right {
+               float: right;
+               text-align: right;
+          }
+          .num {
+               width: 80px;
+          }
+          input[type=number]::-webkit-inner-spin-button, 
+          input[type=number]::-webkit-outer-spin-button { 
+               -webkit-appearance: none; 
+               margin: 0; 
+          }
+     </style>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: principal, annual rate, number of years, periods per year
+           * Processing: calc future value of investment based on above
+           * Output: above
+           */
+          function doFV () {
+               document.getElementById("outputDiv").innerHTML = "$" + 
+               computeFutureValue(
+               Number(document.getElementById("principalBox").value),
+               Number(document.getElementById("rateBox").value),
+               Number(document.getElementById("timeBox").value),
+               Number(document.getElementById("periodBox").value)).toFixed(2);
+          }
+          function computeFutureValue(principal, annualRate, years, periodsPerYear) {
+               return principal * (1 + annualRate / periodsPerYear) ** (years * periodsPerYear);
+          }
+      </script>
+</head>
+<body>
+     <div class=main id=main>
+          <label for=principalBox>Amount invested (principal):</label>
+          <input type=number class="right num" id=principalBox><br>
+          <label for=rateBox>Annual rate:</label>
+          <input type=number class="right num" id=rateBox><br>
+          <label for=timeBox>Number of years:</label>
+          <input type=number class="right num" id=timeBox><br>
+          <label for=periodBox>Periods per year:</label>
+          <input type=number class="right num" id=periodBox><br>
+          <button type=button onclick="doFV()">Compute Future Value</button>
+          <div class=right id=outputDiv></div>
+     </div>
+</body>
+</html>

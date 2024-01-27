@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Test One</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: two nums
+           * Processing: if both > 5 or one + two > 20, true, if not, false
+           * Output: above
+           */
+          function ifSatisfies() {
+               let numOne = Number(document.getElementById("numOne").value);
+               let numTwo = Number(document.getElementById("numTwo").value);
+               if ((numOne > 5 && numTwo > 5) || (numOne + numTwo > 20)) {
+                    document.getElementById("outputDiv").innerHTML = "True";
+               } else {
+                    document.getElementById("outputDiv").innerHTML = "False";
+               }
+          }
+      </script>
+</head>
+<body>
+     Please enter two numbers:
+     <input type="number" id="numOne" size="5">
+     <input type="number" id="numTwo" size="5">
+     <button type="button" onclick="ifSatisfies()">Click Me</button>
+     <div id="outputDiv"></div>
+</body>
+</html>

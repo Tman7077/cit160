@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>2 Powers Until Max Int</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: N/A
+           * Processing: create 2 power table until 2^31
+           * Output: above
+           */
+          var output = "";
+          for (let i = 1; i <= 31; i++) {
+               output += "2<sup>" + i + "</sup> = " + 2**i + "<br>";
+          }
+      </script>
+</head>
+<body>
+     <div id=outputDiv></div>
+     <script>
+          document.getElementById("outputDiv").innerHTML = output;
+     </script>
+</body>
+</html>

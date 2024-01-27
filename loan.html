@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Loan Calculator</title>
+     <style>
+          .main {
+               width: 350px;
+               line-height: 1.5em;
+          }
+          .right {
+               float: right;
+               text-align: right;
+          }
+          .num {
+               width: 80px;
+          }
+          input[type=number]::-webkit-inner-spin-button, 
+          input[type=number]::-webkit-outer-spin-button { 
+               -webkit-appearance: none; 
+               margin: 0; 
+          }
+     </style>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: principal, annual rate, number of years, payments per year (pt 1); num payments made (pt 2)
+           * Processing: calc payment amount (pt 1); calc amount left to pay (pt 2)
+           * Output: above, split by "pt"
+           */
+          function doPayment () {
+               document.getElementById("paymentDiv").innerHTML = "$" + 
+               computePayment(
+               Number(document.getElementById("principalBox").value),
+               Number(document.getElementById("rateBox").value),
+               Number(document.getElementById("timeBox").value),
+               Number(document.getElementById("freqBox").value)).toFixed(2);
+          }
+          function doBalance () {
+               document.getElementById("balanceDiv").innerHTML = "$" + 
+               computeBalance(
+               Number(document.getElementById("principalBox").value),
+               Number(document.getElementById("rateBox").value),
+               Number(document.getElementById("timeBox").value),
+               Number(document.getElementById("freqBox").value),
+               Number(document.getElementById("numPaidBox").value)).toFixed(2);
+          }
+          function computePayment(principal, annualRate, years, periodsPerYear) {
+               return (principal * annualRate / periodsPerYear) / (1 - (1 + (annualRate / periodsPerYear)) ** (-1 * years * periodsPerYear));
+          }
+          function computeBalance(principal, annualRate, years, periodsPerYear, numberOfPaymentPaidToDate) {
+               return principal * (1 + (annualRate / periodsPerYear)) ** numberOfPaymentPaidToDate - (computePayment(principal, annualRate, years, periodsPerYear).toFixed(2) * ((1 + (annualRate / periodsPerYear)) ** numberOfPaymentPaidToDate - 1)) / (annualRate / periodsPerYear);
+          }
+      </script>
+</head>
+<body>
+     <div class=main id=main>
+          <label for=principalBox>Amount borrowed (principal):</label>
+          <input type=number class="right num" id=principalBox><br>
+          <label for=rateBox>Annual interest rate:</label>
+          <input type=number class="right num" id=rateBox><br>
+          <label for=timeBox>Number of years:</label>
+          <input type=number class="right num" id=timeBox><br>
+          <label for=freqBox>Payments per year:</label>
+          <input type=number class="right num" id=freqBox><br>
+          <button type=button onclick="doPayment()">Compute Payment</button>
+          <div class=right id=paymentDiv></div><br>
+          <label for=numPaidBox>Number of Payments paid to date:</label>
+          <input type=number class="right num" id=numPaidBox><br>
+          <button type=button onclick="doBalance()">Compute payoff amount</button>
+          <div class=right id=balanceDiv></div>
+     </div>
+</body>
+</html>

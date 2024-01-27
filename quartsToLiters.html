@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Convert Quarts to Liters</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: User-input amount of quarts
+           * Processing: Convert quarts to liters
+           * Output: Liters
+           */
+          function convQtToL() {
+               let liters = 0.946353*Number(document.getElementById("quartInputBox").value); //calculate liters
+               document.getElementById("outputDiv").innerHTML = "Liters: " + liters; //display liters in output div
+          }
+      </script>
+</head>
+<body>
+     Quarts: <input type=number id=quartInputBox>
+     <button type=button onclick="convQtToL()">Convert!</button>
+     <div id=outputDiv></div>
+</body>
+</html>

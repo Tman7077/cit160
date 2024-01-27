@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Five Times Table to 12</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: N/A
+           * Processing: Create 5 times table up to 5x12
+           * Output: above
+           */
+          var output = "";
+          for (let i = 1; i <= 12; i++) {
+               output += "5 × " + i + " = " + 5*i + "<br>";
+          }
+      </script>
+</head>
+<body>
+     <div id=outputDiv></div>
+     <script>
+          document.getElementById("outputDiv").innerHTML = output;
+     </script>
+</body>
+</html>

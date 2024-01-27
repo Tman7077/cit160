@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Palindromic Primes</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: num of palindromic primes to print
+           * Processing: calc palindromic primes, num of which is determined by above
+           * Output: num of palindromic primes req.d
+           */
+          function doPrint() {
+               document.getElementById("outputDiv").innerHTML = printPalPrimes(Number(document.getElementById("numBox").value));
+          }
+          function printPalPrimes(numToFind) {
+               let output = "";
+               function isPrime(number) {
+                    for (let i = 2; i <= Math.sqrt(number); i++) {
+                         if (number % i == 0) {
+                              return false;
+                         }
+                    }
+                    return true;
+               }
+               function isPal(number) {
+                    for (let i = 1; i <= number.length / 2; i++) {
+                         if (number.substring(0,1) !== number.substring(number.length - 1)) {
+                              return false;
+                         }
+                         return true;
+                    }
+               }
+               for (let number = 2, numFound = 0; numFound < numToFind; number++) {
+                    if(isPrime(number) && isPal(number.toString())) {
+                         output += number + " ";
+                         numFound++;
+                    }
+               }
+               return output;
+          }
+      </script>
+</head>
+<body>
+     <label for=number step=1>How many palindromic primes do you want?</label>
+     <input type=number id=numBox>
+     <button type=button onclick="doPrint()">Do it</button>
+     <div id=outputDiv></div>
+</body>
+</html>

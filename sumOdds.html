@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Nobody Needs This ¯\_(ツ)_/¯</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: user-input integer
+           * Processing: add odd integers less than and equal to input
+           * Output: sum
+           */
+          function sumOdds() {
+               let int = document.getElementById("integerInputBox").value; //creates variable int and assigns it the value of the user-input number
+               if (int - Math.round(int) != 0) { //if variable int is not an integer
+                    document.getElementById("outputDiv").innerHTML = "Please enter an integer."; //tell the user they're big dumb
+               } else { //if the variable int is an integer
+                    let total = 0, eq; //creates variables total and eq, and sets value of total to 0
+                    for (let i = 1; i <= int; i++) { //counting for loop from 1 to int
+                         if (i%2 != 0) { //if i is odd
+                              total += i; //add i to total
+                              if (i == 1) { //if i is 1
+                                   eq = "1" //starts eq variable with 1
+                              } else { 
+                                   eq = eq + " + " + i; //concatenates eq with next odd integer
+                              }
+                         }
+                    }
+                    document.getElementById("outputDiv").innerHTML = eq + " = " + total; //outputs equation and answer
+               }
+          }
+      </script>
+</head>
+<body>
+     <input type=number min=0 placeholder="0" autofocus=true id=integerInputBox><br>
+     <button type=button onclick="sumOdds()">Do the Thing</button>
+     <div id=outputDiv></div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>What Shoes Should I Wear?</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Weather type
+           * Processing: Decide appropriate footwear
+           * Output: Appropriate footwear
+           */
+          function decideShoes() {
+               let userInput = document.getElementById("userInputBox").value; //create variable userInput and assign the user-input text to it
+               let shoes; //create variable shoes
+               switch (userInput) {
+                    case "hot":
+                    case "Hot": //if userInput is "hot" or "Hot," assign value "sandals" to variable shoes
+                         shoes = "sandals";
+                         break;
+                    case "rain":
+                    case "Rain": //if userInput is "rain" or "Rain," assign value "galoshes" to variable shoes
+                         shoes = "galoshes";
+                         break;
+                    case "snow":
+                    case "Snow": //if userInput is "snow" or "Snow," assign value "boots" to variable shoes
+                         shoes = "boots";
+                         break;
+                    default: //if userInput is not any of the above, assign value "shoes" to variable shoes
+                         shoes = "shoes";
+                         break;
+               }
+               document.getElementById("outputDiv").innerHTML = "You should wear " + shoes + "."; //display appropriate footwear based on input
+          }
+      </script>
+</head>
+<body>
+     Enter weather here: <input type=text id=userInputBox><br>
+     <button type=button onclick="decideShoes()">Shoe me!</button>
+     <div id=outputDiv></div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Calculator</title>
+     <style>
+          .center {
+               margin: auto;
+               width: 380px;
+               text-align: center
+          }
+
+          .div {
+               border: 2px solid darkgray;
+               border-radius: 5px;
+               font-size: 24px;
+               text-align: right;
+               padding: 10px;
+          }
+          
+          .button {
+               border: black;
+               border-radius: 5px;
+               color: black;
+               padding: 15px 32px;
+               text-align: center;
+               font-size: 18px;
+               display: inline-block;
+               margin: 4px 2px;
+               cursor: pointer;
+          }
+          
+          .num {
+               background-color: lightgray;
+               width: 80px;
+          }
+
+          .operator {
+               background-color: gray;
+               width: 80px;
+               /* font-weight: bold; */
+          }
+          </style>
+     <script>
+          "use strict";
+          var calcDisplay = 0;
+          var calcDisplayOld = 0;
+          var num, lastEx, firstNumParsed, secondNumParsed, ans; 
+          function appendInput(event) {
+               let numId = event.target.id;
+               num = numId.replace("num","");
+               calcDisplay = document.getElementById("calcDisplay").innerText;
+               if(num !=".") {
+                    if (calcDisplay == 0) {
+                         calcDisplay = num;
+                    } else {
+                         calcDisplay = calcDisplay + num;
+                    }
+               
+               } else {
+                    if (calcDisplay == 0) {
+                         calcDisplay = "0."
+                    } else if (calcDisplay.includes(".")) {
+                         alert("Your number must only have one decimal.")
+                    } else {
+                         calcDisplay = calcDisplay + "."
+                    }
+               }
+               document.getElementById("calcDisplay").innerHTML = calcDisplay;
+          }
+          function operatorInput(event) {
+               calcDisplay = document.getElementById("calcDisplay").innerText;
+               if (calcDisplayOld !== 0) {
+                    calcDisplayOld = eval("calcDisplayOld + calcDisplay");
+                    lastEx = calcDisplayOld
+                    solveEq();
+               } else {
+                    lastEx = calcDisplay
+               }
+               let opId = event.target.id;
+               let operator = opId.replace("op", "");
+               let opFxName = "operator" + operator;
+               window[opFxName]();
+          }
+          function operatorDivide() {
+               calcDisplayOld = lastEx + " ÷ ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorMultiply() {
+               calcDisplayOld = lastEx + " × ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorAdd() {
+               calcDisplayOld = lastEx + " + ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorSubtract() {
+               calcDisplayOld = lastEx + " - ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorNegate() {
+               calcDisplay = -1 * calcDisplay;
+               //calcDisplayOld = calcDisplay
+               updateDisplays();
+          }
+          function operatorEquals() {
+               solveEq();
+               updateDisplays();
+          }
+          function solveEq() {
+               if (calcDisplayOld.includes(" ÷ ")){
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("÷") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("÷") + 2));
+                    console.log("div: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed / secondNumParsed;
+               }
+               if (calcDisplayOld.includes(" × ")){
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("×") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("×") + 2));
+                    console.log("mult: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed * secondNumParsed;
+               }
+               if (calcDisplayOld.includes(" + ")){
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("+") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("+") + 2));
+                    console.log("add: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed + secondNumParsed;
+               }
+               if (calcDisplayOld.includes(" - ")){
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("-") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("-") + 2));
+                    console.log("sub: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed - secondNumParsed;
+               }
+               lastEx = ans
+               calcDisplayOld = ""
+               calcDisplay = ans
+          }
+          function updateDisplays() {
+               document.getElementById("calcDisplay").innerHTML = calcDisplay;
+               document.getElementById("calcDisplayOld").innerHTML = calcDisplayOld;
+          }
+     </script>
+</head>
+<body class=center>
+     <h1>Calculator</h2>
+     <div class=div id=calcDisplayDiv>
+          <div style="color:gray;font-size:18px" id=calcDisplayOld>0</div>
+          <div contentEditable=true id=calcDisplay>0</div>
+     </div>
+     <div class=div id=calc>
+          <button type=button class="button operator" id="opDivide" onclick="operatorInput(event)">÷</button><br>
+          <button type=button class="button num" name=number id="num1" onclick="appendInput(event)">1</button>
+          <button type=button class="button num" name=number id="num2" onclick="appendInput(event)">2</button>
+          <button type=button class="button num" name=number id="num3" onclick="appendInput(event)">3</button>
+          <button type=button class="button operator" id="opMultiply" onclick="operatorInput(event)">×</button><br>
+          <button type=button class="button num" name=number id="num4" onclick="appendInput(event)">4</button>
+          <button type=button class="button num" name=number id="num5" onclick="appendInput(event)">5</button>
+          <button type=button class="button num" name=number id="num6" onclick="appendInput(event)">6</button>
+          <button type=button class="button operator" id="opAdd" onclick="operatorInput(event)">+</button><br>
+          <button type=button class="button num" name=number id="num7" onclick="appendInput(event)">7</button>
+          <button type=button class="button num" name=number id="num8" onclick="appendInput(event)">8</button>
+          <button type=button class="button num" name=number id="num9" onclick="appendInput(event)">9</button>
+          <button type=button class="button operator" id="opSubtract" onclick="operatorInput(event)">-</button><br>
+          <button type=button class="button operator" id="opNegate" onclick="operatorInput(event)">±</button>
+          <button type=button class="button num" name=number id="num0" onclick="appendInput(event)">0</button>
+          <button type=button class="button num" name=number id="num." onclick="appendInput(event)">.</button>
+          <button type=button class="button operator" id="opEquals" onclick="operatorInput(event)">=</button><br>
+     </div>
+     <script>
+          document.getElementById("calcDisplay").innerHTML = 0;
+          var calcContent = document.getElementById("calcDisplay").innerText;
+          document.getElementById("calcDisplayOld").innerHTML = 0;
+          var calcContentOld = document.getElementById("calcDisplay").innerText;
+     </script>
+</body>
+</html>

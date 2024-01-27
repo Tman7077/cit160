@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Calculator</title>
+     <style>
+          .center {
+               margin: auto;
+               width: 380px;
+               text-align: center
+          }
+
+          .div {
+               border: 2px solid darkgray;
+               border-radius: 5px;
+               font-size: 24px;
+               text-align: right;
+               padding: 10px;
+          }
+          
+          .button {
+               border: black;
+               border-radius: 5px;
+               color: black;
+               padding: 15px 32px;
+               text-align: center;
+               font-size: 18px;
+               display: inline-block;
+               margin: 4px 2px;
+               cursor: pointer;
+          }
+          
+          .num {
+               background-color: lightgray;
+               width: 80px;
+          }
+
+          .operator {
+               background-color: gray;
+               width: 80px;
+               /* font-weight: bold; */
+          }
+          </style>
+     <script>
+          "use strict";
+          var calcDisplay = 0; //calcDisplay is the black number that keeps track of the buttons pressed -- just like a normal calculator display
+          var calcDisplayOld = 0; //calcDisplay is the gray, smaller number above calcDisplay that keep track of the calculator's "history."
+          var num, lastEx, firstNumParsed, secondNumParsed, ans; //a few other variables to be used later in multiple functions
+          function appendInput(event) { //activates when a number button (aka light gray) is pressed
+               let numId = event.target.id;
+               num = numId.replace("num",""); //takes the id attribute of the button pressed and removes the "num" string to turn it into a number
+               calcDisplay = document.getElementById("calcDisplay").innerText;
+               if(num !=".") { //if var num holds a numerical value, aka isn't the decimal point
+                    if (calcDisplay == 0) {
+                         calcDisplay = num; //sets calcDislpay to the number
+                    } else {
+                         calcDisplay = calcDisplay + num; //concatenates calcDisplay, adding the number
+                    }
+               
+               } else { //if var num is the decimal point
+                    if (calcDisplay == 0) {
+                         calcDisplay = "0." //if calcDisplay is empty, "0."
+                    } else if (calcDisplay.includes(".")) { 
+                         alert("Your number must only have one decimal.") //prevents multiple decimal points
+                    } else {
+                         calcDisplay = calcDisplay + "." //if calcDisplay isn't empty, add the decimal point
+                    }
+               }
+               document.getElementById("calcDisplay").innerHTML = calcDisplay; //updates the display with correct info (above).
+          }
+          function operatorInput(event) { //is activated when an operator button (aka dark gray) is pressed
+               calcDisplay = document.getElementById("calcDisplay").innerText; //get value of calcDisplay
+               if (calcDisplayOld !== 0) { //if calcDisplay isn't empty
+                    calcDisplayOld = eval("calcDisplayOld + calcDisplay");
+                    /* okay so the eval function does not work the way I thought it would. Maybe I'm using it wrong. But here, what I am pretty sure it's doing is literally just concatenating the strings, so whatever. That's what it's being used for even though I didn't intend to use it that way when I coded it initally.*/
+                    lastEx = calcDisplayOld //sets var lastEx as what calcDisplayOld used to be so I can modify calcDislpayOld yet keep its og value
+                    solveEq(); //calls fxn solveEq
+               } else { //if calcDisplay is empty
+                    lastEx = calcDisplay //^from above
+               }
+               let opId = event.target.id; //gets id of pressed button
+               let operator = opId.replace("op", ""); //removes "op" from above id to make the operator just its name (e.g. "Add," "Multiply")
+               let opFxName = "operator" + operator; //sets the name of the function to be called in the next line
+               window[opFxName](); //calls the function based on the line above
+          }
+          /*the "operator----" functions concatenate calcDisplayOld with the operator pressed, then call the function that updates displays*/
+          function operatorDivide() {
+               calcDisplayOld = lastEx + " ÷ "; 
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorMultiply() {
+               calcDisplayOld = lastEx + " × ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorAdd() {
+               calcDisplayOld = lastEx + " + ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorSubtract() {
+               calcDisplayOld = lastEx + " - ";
+               calcDisplay = "";
+               updateDisplays();
+          }
+          function operatorNegate() {
+               calcDisplay = -1 * calcDisplay;
+               updateDisplays();
+          }
+          function operatorEquals() {
+               solveEq();
+               updateDisplays();
+          }
+          function solveEq() { //this is where the actual math occurs (or that's the goal)
+          /*
+          firstNumParsed is the string from the start to the space before the operator, aka the first number in the string.
+          secondNumParsed essentially does the same thing but for the second number.
+          the string "12 + 17" returns firstNumParsed = 12; secondNumParsed = 17;
+          console.log lines are just telling me what the values stored in each variable are at this point, just for testing purposes.
+          then they set var ans to the first number plus/minus/multiplied by/divided by the second number.
+          */
+               if (calcDisplayOld.includes("÷")) { //if division
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("÷") - 1)); //
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("÷") + 2));
+                    console.log("div: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed / secondNumParsed;
+               }
+               if (calcDisplayOld.includes("×")) { //if multiplication
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("×") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("×") + 2));
+                    console.log("mult: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed * secondNumParsed;
+               }
+               if (calcDisplayOld.includes("+")) { //if addition
+                    firstNumParsed = Number(calcDisplayOld.substring(0, calcDisplayOld.indexOf("+") - 1));
+                    secondNumParsed = Number(calcDisplayOld.substring(calcDisplayOld.indexOf("+") + 2));
+                    console.log("add: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                    ans = firstNumParsed + secondNumParsed;
+               }
+               if (calcDisplayOld.includes("-")) { //if subtraction -- here's the problem section. Subtracting and negative signs use the same symbol.. you see the problem
+                    let cdoIgNeg; //cdoIgNeg meaning calcDisplayOldIgnoreNegative -- it works in my brain
+                    if (calcDisplayOld.indexOf("-") == 0) { //if the negative is the first character in the string
+                         cdoIgNeg = calcDisplayOld.substring(1); //removes the negative
+                         console.log("cdoIgNeg = " + cdoIgNeg); //logs what cdoIgNeg holds
+                    } else { //if the negative is not the first cahracter in the string
+                         cdoIgNeg = calcDisplayOld; //sets cdoIgNeg to calcDisplayOld for the sake of the next if
+                    }
+                    if (cdoIgNeg.includes("-")) { //if after going through the previous lines of code, cdoIgNeg still has a "-" in it (e.g. "-9 - 17" after removal of the negative still has a minus sign)
+                         firstNumParsed = Number(cdoIgNeg.substring(0, cdoIgNeg.indexOf("-") - 1)); //from here on, still the same
+                         secondNumParsed = Number(cdoIgNeg.substring(cdoIgNeg.indexOf("-") + 2));
+                         console.log("sub: f = " + firstNumParsed + ", s = " + secondNumParsed);
+                         ans = firstNumParsed - secondNumParsed;
+                    }
+               }
+               lastEx = ans //after the operator section runs, sets lastEx to the answer it calculated
+               calcDisplayOld = "" //empties calcDisplayOld
+               calcDisplay = ans //sets calcDisplay to answer
+          }
+          function updateDisplays() { //sets values of calcDisplay and calcDisplayOld (html tags) to variable values with same names
+               document.getElementById("calcDisplay").innerHTML = calcDisplay; 
+               document.getElementById("calcDisplayOld").innerHTML = calcDisplayOld;
+          }
+     </script>
+</head>
+<body class=center>
+     <h1>Calculator</h2>
+     <div class=div id=calcDisplayDiv>
+          <div style="color:gray;font-size:18px" id=calcDisplayOld>0</div>
+          <div contentEditable=true id=calcDisplay>0</div>
+     </div>
+     <div class=div id=calc> <!-- all the buttons, with names and ids curated for use in js fxns above-->
+          <button type=button class="button operator" id="opDivide" onclick="operatorInput(event)">÷</button><br>
+          <button type=button class="button num" name=number id="num1" onclick="appendInput(event)">1</button>
+          <button type=button class="button num" name=number id="num2" onclick="appendInput(event)">2</button>
+          <button type=button class="button num" name=number id="num3" onclick="appendInput(event)">3</button>
+          <button type=button class="button operator" id="opMultiply" onclick="operatorInput(event)">×</button><br>
+          <button type=button class="button num" name=number id="num4" onclick="appendInput(event)">4</button>
+          <button type=button class="button num" name=number id="num5" onclick="appendInput(event)">5</button>
+          <button type=button class="button num" name=number id="num6" onclick="appendInput(event)">6</button>
+          <button type=button class="button operator" id="opAdd" onclick="operatorInput(event)">+</button><br>
+          <button type=button class="button num" name=number id="num7" onclick="appendInput(event)">7</button>
+          <button type=button class="button num" name=number id="num8" onclick="appendInput(event)">8</button>
+          <button type=button class="button num" name=number id="num9" onclick="appendInput(event)">9</button>
+          <button type=button class="button operator" id="opSubtract" onclick="operatorInput(event)">-</button><br>
+          <button type=button class="button operator" id="opNegate" onclick="operatorInput(event)">±</button>
+          <button type=button class="button num" name=number id="num0" onclick="appendInput(event)">0</button>
+          <button type=button class="button num" name=number id="num." onclick="appendInput(event)">.</button>
+          <button type=button class="button operator" id="opEquals" onclick="operatorInput(event)">=</button><br>
+     </div>
+     <script>
+          //sets values of calcDisplay and calcDisplayOld to 0 AFTER element load because I was having problems with these lines in the <head> script tag -\_(0.0)_/-
+          document.getElementById("calcDisplay").innerHTML = 0; 
+          var calcContent = document.getElementById("calcDisplay").innerText; //i dont think i use these variables but that's for cleaning up later :P
+          document.getElementById("calcDisplayOld").innerHTML = 0;
+          var calcContentOld = document.getElementById("calcDisplay").innerText;
+     </script>
+</body>
+</html>

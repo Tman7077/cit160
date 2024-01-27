@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Calculate Price's Rate of Change</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Previous price and current price
+           * Processing: Calculate rate of change of price
+           * Output: Rate of Change
+           */
+          function calcRoC() {
+               let prevPrice = Number(document.getElementById("inputPrevPrice").value); //define variable prevPrice as user-input previous price
+               let currentPrice = Number(document.getElementById("inputCurrentPrice").value); //define variable currentPrice as user-input current price
+               let rate = (currentPrice - prevPrice) / prevPrice; //calculate rate of change
+               rate = Math.round(10000 * rate) / 10000 //round rate of change to 4 decimal places
+               document.getElementById("outputDiv").innerHTML = "Price's Rate of Change: " + rate //display rounded rate of change in output div
+          }
+      </script>
+</head>
+<body>
+     Previous Price: <input type=number id="inputPrevPrice"><br>
+     Current Price: <input type=number id="inputCurrentPrice"><br>
+     <button type=button onclick="calcRoC()">Calculate</button><br>
+     <div id="outputDiv"></div>
+</body>
+</html>

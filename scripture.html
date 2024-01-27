@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>D&C 42:22</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: User-input name and gender
+           * Processing: Add user's name to a scripture and change pronoun based on gender
+           * Output: User-tailored scripture
+           */
+          function scripture() {
+               let nameInput = document.getElementById("nameInputBox").value; // Assigns user input from text box to variable nameInput
+               let genderRBs = document.querySelectorAll('input[name="gender"]'); // Assigns Male & Female radio buttons (as a whole) to variable genderRBs
+               let genderInput; // Creates variable genderInput
+               for (let genderSelectedRB of genderRBs) { // Repeats nested statements for each radio button down the list (in this case, genderRBs) until broken or finished
+                    if (genderSelectedRB.checked) { /* Checks if the radio button is selected.
+                         Checks state of first radio button on first loop of "for" statement,
+                         checks state of second radio button on second loop, etc.*/
+                         genderInput = genderSelectedRB.value; // Assigns the value of the selected radio button to variable genderInput
+                         break; /* Exits the loop.
+                         Because there cannot be more than one radio button selected,
+                         there is no point in checking the remaining radio buttons in the list.
+                         Therefore, once the selected button is found,
+                         this breaks the loop so the function scripture can continue.*/
+                    }
+               }
+               let himHer; // Creates variable himHer
+               if (genderInput == "Male") {
+                    himHer = "him"; // If genderInput is "Male", assigns value "him" to himHer
+               } else {
+                    himHer = "her"; // If genderInput is NOT "Male", assigns value "her" to himHer
+               }
+               let scriptureEdited = "D&C 42:22 - Thou shalt love "
+               + nameInput +
+               " with all thy heart, and shalt cleave unto "
+               + himHer +
+               " and none else.";
+               /* Generates the scripture,
+               including both the user-input text (nameInput)
+               and the user-input gender (himHer).*/
+               document.getElementById("outputDiv").innerHTML = scriptureEdited; //Displays scriptureEdited in outputDiv
+          }
+      </script>
+</head>
+<body>
+     <h2>Do you love someone?</h2>
+     <p>Do you have a significant other, be it a boy/girlfriend, a fiancée, or a spouse? Input their name here, and receive some counsel from D&C 42.
+          If you don't, put your own name in.
+          Also, select the gender of the person whose name is in the box.
+     </p>
+     <form>
+          Name: 
+          <input type="text" id="nameInputBox">
+          <br>
+          <input type="radio" id="male" name="gender" value="Male">
+          <label for="male">Male</label>
+          <br>
+          <input type="radio" id="female" name="gender" value="Female">
+          <label for="female">Female</label>
+          <br><br>
+          <button type="button" id="button" onclick="scripture()">Receive Counsel</button>
+     </form>
+     <br><br>
+     <div id=outputDiv></div>
+</body>
+</html>

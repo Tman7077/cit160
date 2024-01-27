@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Title</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: 
+           * Processing: 
+           * Output: 
+           */
+          function buttonPress() {
+               let garbage = [ -72.3, 3000, 873, 2312, 68, 7501.3 ];
+               document.getElementById("outputDiv").innerHTML = averageBig(garbage);
+          }
+          function averageBig(list) {
+               let bigs = [];
+               for (let i =0; i < list.length; i++) {
+                    if (list[i] > 1000) {
+                         bigs.push(list[i]);
+                    }
+               }
+               let add = 0;
+               for (let i = 0; i < bigs.length; i++) {
+                    add += bigs[i];
+               }
+               let ans;
+               if (bigs.length == 0) {
+                    ans = 0;
+               } else {
+                    ans = (add / (bigs.length)).toFixed(2);
+               }
+               return ans;
+          }
+      </script>
+</head>
+<body>
+     <button type=button onclick="buttonPress()">Button Name</button>
+     <div id=outputDiv></div>
+</body>
+</html>

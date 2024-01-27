@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Greeting</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: User input
+           * Processing: Decide how to display message based on user's punctuation
+           * Output: Alert the user with their content, correctly punctuated
+           */
+          function greeting() {
+               let userInput = document.getElementById("userInputBox").value; // Assigns user input from text box as variable userInput
+               let alertContent; // Creates variable alertContent
+               if (userInput.endsWith(".")) {
+                    alertContent = 'Your input was "' + userInput + '"'; // If the user input ends with a period, defines alertContent without duplicating the period.
+               } else if (userInput.endsWith(",") ||
+                         userInput.endsWith("?") ||
+                         userInput.endsWith("!") ||
+                         userInput.endsWith(":") ||
+                         userInput.endsWith(";")) {
+                    alertContent = 'Your input was "' + userInput + '".'; // If the user input ends with a non-period punctuation mark, defines alertContent with a period outside of the closing quotation mark.
+               } else {
+                    alertContent = 'Your input was "' + userInput + '."'; // If the user input ends without a punctuation mark, defines alertContent with a period inside the closing quotation mark.
+               }
+               alert(alertContent);
+          }
+      </script>
+</head>
+<body>
+     <input type=text id=userInputBox>
+     <button type=button onclick="greeting()">Alert Me!</button>
+</body>
+</html>

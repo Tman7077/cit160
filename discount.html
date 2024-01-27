@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Do You Get a Discount?</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Subtotal
+           * Processing: Determine if they get a discount, apply it if necessary, and calculate total with tax
+           * Output: Total
+           */
+          function calcTotal() {
+               let subtotal = document.getElementById("subtInputBox").value;
+               if (subtotal >= 50 && (new Date().getDay() == 2 || new Date().getDay() == 3)) {
+                    subtotal = subtotal * 0.9
+               }
+               let total = subtotal * 1.06;
+               total = total.toFixed(2);
+               document.getElementById("outputDiv").innerHTML = "Your total is $" + total + ".";
+          }
+      </script>
+</head>
+<body>
+     Subtotal: <input type=number id=subtInputBox><br>
+     <button type=button onclick="calcTotal()">Calculate My Total</button>
+     <div id=outputDiv></div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Wind Chill</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Temp (in F) and Wind Speed
+           * Processing: 
+           * Output: Wind chill
+           */
+          function doInputOutput() {
+               let temp = document.getElementById("tempBox").value; //creates variable temp and assigns value of user-input temp box
+               let wSpeed = document.getElementById("windBox").value; //creates variable temp and assigns value of user-input wind speed box
+               let wChill = windChill(temp, wSpeed); //calls windChill
+               document.getElementById("outputDiv").innerHTML = "To your body, the temperature will feel like " + wChill.toFixed(2) + "°F."; //outputs wind chill
+          }
+          function windChill(tempF, speed) {
+               return 35.74 + 0.6215 * tempF - 35.75 * speed ** 0.16 + 0.4275 * tempF * speed ** 0.16; //calc.s wind chill from temp and wind speed
+          }
+      </script>
+</head>
+<body>
+     Temperature: <input type=text id=tempBox size=1> °F<br>
+     Wind Speed: <input type=text id=windBox size=1> mph<br>
+     <button type=button onclick="doInputOutput()">Wind Chill</button>
+     <div id=outputDiv></div>
+</body>
+</html>

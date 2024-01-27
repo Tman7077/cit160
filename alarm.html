@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Should I Wake Up Today?</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Computer's clock
+           * Processing: Determine if the day of the week, month, and year is a day on which the user should wake up
+           * Output: Get up or sleep in
+           */
+          var date = new Date();
+          console.log("Today: " + date);
+          function setTomorrow() {
+               date = new Date(date);
+               date.setDate(date.getDate() + 1);
+               console.log("Tomorrow: " + date);
+               shouldAlarm();
+          }
+          function shouldAlarm() {
+               date = date.toString();
+               let dateTrunc;
+               dateTrunc = date.substring(0, date.indexOf(":") - 8) + ".";
+               //console.log(dateTrunc);
+               let message;
+               let isNYD = dateTrunc.includes("Jan") && dateTrunc.includes("01");
+               //console.log(isNYD);
+               let is4oJ = dateTrunc.includes("Jul") && dateTrunc.includes("04");
+               //console.log(is4oJ);
+               let isChr = dateTrunc.includes("Dec") && dateTrunc.includes("25");
+               //console.log(isChr);
+               let isHoliday = isNYD || is4oJ || isChr;
+               //console.log(isHoliday);
+               if (!(date.includes("Sat") || date.includes("Sun")) && isHoliday == false) {
+                    message = "Get up!";
+               } else {
+                    message = "Sleep in.";
+               }
+               document.getElementById("outputDiv").innerHTML = message;
+          }
+      </script>
+</head>
+<body>
+     <button type=button onclick=shouldAlarm()>Should I wake up today?</button>
+     <button type=button onclick=setTomorrow()>Should I wake up tomorrow?</button>
+     <div id=outputDiv></div>
+</body>
+</html>

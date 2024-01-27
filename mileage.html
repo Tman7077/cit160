@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Calculate MPG</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Starting and ending odometer reading, gallons of gas used
+           * Processing: Calculate MPG (subtract start from end odo, divide by gal gas used)
+           * Output: MPG
+           */
+          function calcMPG() {
+               if (Number(document.getElementById("inputStartOdo").value) < Number(document.getElementById("inputEndOdo").value)) { //if the start reading is less than the end reading, run the following statements
+                    let mpg = (document.getElementById("inputEndOdo").value - 
+               document.getElementById("inputStartOdo").value) / 
+               document.getElementById("inputGalGas").value; //calculate MPG
+               document.getElementById("outputDiv").innerHTML = "MPG: " + mpg; //display the MPG in the output div
+               } else { //if the start reading is not less than the end reading, run the following statement
+                    alert("Your starting odometer reading must be less than your ending odometer reading!") //tell the user they have to put in possible numbers
+               }
+          }
+      </script>
+</head>
+<body>
+     Starting Odometer Reading: <input type=number id=inputStartOdo><br>
+     Ending Odometer Reading: <input type=number id=inputEndOdo><br>
+     Gallons of Gas Used: <input type=number id=inputGalGas><br>
+     <button type=button onclick="calcMPG()">Calculate MPG</button><br>
+     <div id=outputDiv></div>
+</body>
+</html>

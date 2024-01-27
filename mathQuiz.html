@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Check My Work!</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: first number, operator, second number, assumed-correct answer
+           * Processing: calculate correct answer
+           * Output: correct answer and tell user if they were correct
+           */
+          var eq,
+          eqParsed,
+          firstNumParsed,
+          secondNumParsed,
+          eqParsed,
+          userAnswer,
+          correctAnswer; //creates many variables for various functions to use
+          function checkWork() {
+               let firstNum = document.getElementById("firstNumBox").value; //assigns value in first number box to variable firstNum 
+               let secondNum = document.getElementById("secondNumBox").value; //assigns value in second number box to variable secondNum
+               let operators = document.querySelectorAll('input[name="operators"]'); //defines the variable operators as the list of radio buttons (containing the operators)
+               let operator; //creates variable operator
+               for (let selectedOperator of operators) {
+                    if (selectedOperator.checked) { //checks if first radio button is selected, then second, etc. then repeats nested statements
+                         operator = selectedOperator.value; //assigns text value (from value attribute of radio button tag) of the selected radio button to variable operator
+                         break;
+                    }
+               }
+               userAnswer = document.getElementById("userAnswerBox").value; //assigns value of user-input answer box to variable userAnswer
+               eq = firstNum + " " + operator + " " + secondNum; //creates equation to be parsed from first number, operator, and second number
+               eqParser(); //calls function eqParser
+          }
+          function eqParser() { 
+               /*each if statement is the same, but for a different operator: converts text operator variable to operation symbol and creates an equation to display to the user (later). Then, determines the answer to the equation, assigns its value to a variable correctAnswer, and calls function answerDisplay*/
+               if (eq.includes("Add")) {
+                    eqParsed = eq.substring(0, eq.indexOf("Add")) +
+                    "+" + eq.substring(eq.indexOf("Add") + 3);
+                    firstNumParsed = Number(eq.substring(0, eq.indexOf("Add")));
+                    secondNumParsed = Number(eq.substring(eq.indexOf("Add") + 3));
+                    correctAnswer = firstNumParsed + secondNumParsed;
+                    answerDisplay();
+               }
+               if (eq.includes("Subtract")) {
+                    eqParsed = eq.substring(0, eq.indexOf("Subtract")) +
+                    "-" + eq.substring(eq.indexOf("Subtract") + 8);
+                    firstNumParsed = Number(eq.substring(0, eq.indexOf("Subtract")));
+                    secondNumParsed = Number(eq.substring(eq.indexOf("Subtract") + 8));
+                    correctAnswer = firstNumParsed - secondNumParsed;
+                    answerDisplay();
+               }
+               if (eq.includes("Multiply")) {
+                    eqParsed = eq.substring(0, eq.indexOf("Multiply")) +
+                    "×" + eq.substring(eq.indexOf("Multiply") + 8);
+                    firstNumParsed = Number(eq.substring(0, eq.indexOf("Multiply")));
+                    secondNumParsed = Number(eq.substring(eq.indexOf("Multiply") + 8));
+                    correctAnswer = firstNumParsed * secondNumParsed;
+                    answerDisplay();
+               }
+               if (eq.includes("Divide")) {
+                    eqParsed = eq.substring(0, eq.indexOf("Divide")) +
+                    "÷" + eq.substring(eq.indexOf("Divide") + 6);
+                    firstNumParsed = Number(eq.substring(0, eq.indexOf("Divide")));
+                    secondNumParsed = Number(eq.substring(eq.indexOf("Divide") + 6));
+                    correctAnswer = firstNumParsed / secondNumParsed;
+                    answerDisplay();
+               }
+               function answerDisplay() {
+                    let equals, response; //creates variables equals and response
+                    if (userAnswer == correctAnswer) { //if the user got the right answer, change the output content to reflect this
+                         equals = " does equal ";
+                         response = ". Correct! Good job!"
+                    } else { //if the user got the wrong answer, change the output content to reflect this
+                         equals = " does not equal ";
+                         response = ". Incorrect. Try again!"
+                    }
+                    document.getElementById("outputDiv").innerHTML = "For the equation " + eqParsed + ", your answer of " + userAnswer + equals + "the correct answer of " + correctAnswer + response; //output the user's answer, the correct answer, and congratulate or enourage them depending on if they were correct
+               }
+          }
+      </script>
+</head>
+<body>
+     First Number: <input type=text id=firstNumBox><br>
+     Operator:<br>
+     <input type=radio id=add name=operators value=Add>
+     <label for=add>+</label><br>
+     <input type=radio id=sub name=operators value=Subtract>
+     <label for=add>-</label><br>
+     <input type=radio id=mul name=operators value=Multiply>
+     <label for=add>×</label><br>
+     <input type=radio id=div name=operators value=Divide>
+     <label for=add>÷</label><br>
+     Second Number: <input type=text id=secondNumBox><br>
+     Your Answer: <input type=text id=userAnswerBox><br><br>
+     <button type=button onclick="checkWork()">Check my work</button>
+     <div id=outputDiv></div>
+</body>
+</html>

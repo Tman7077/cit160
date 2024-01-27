@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Calculate Torus Volume</title>
+     <script>
+          "use strict";
+          /* Defining Table
+           * Input: Inner and outer radiuses
+           * Processing: Calculate volume of torus with specified radiuses
+           * Output: Volume of torus
+           */
+          function calcTorusV() {
+               let rInner = Number(document.getElementById("rInnerInput").value); //defines variable rInner as the user-input inner radius
+               let rOuter = Number(document.getElementById("rOuterInput").value); //defines variable rOuter as the user-input outer radius
+               let torusV = (Math.PI * Math.PI * (rInner + rOuter) * (rInner - rOuter) * (rInner - rOuter)) / 4; //calculates the volume of the torus and defines variable torusV accordingly
+               torusV = Math.round(torusV * 10000) / 10000; //rounds torusV to 4 decimal places
+               document.getElementById("outputDiv").innerHTML = "Torus Volume: " + torusV + " units cubed."; //displays calculated volume to the user in the output div
+          }
+      </script>
+</head>
+<body>
+     Inner Radius: <input type=number id="rInnerInput"><br>
+     Outer Radius: <input type=number id="rOuterInput"><br>
+     <button type=button onclick="calcTorusV()">Calculate</button><br>
+     <div id="outputDiv"></div>
+</body>
+</html>
